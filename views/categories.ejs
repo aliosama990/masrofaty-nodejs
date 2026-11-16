@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<div class="page-intro">
+  <h1>Categories</h1>
+</div>
+
+<div class="category-grid">
+  <section class="ledger-panel" aria-labelledby="category-list-heading">
+    <div class="panel-heading">
+      <h2 id="category-list-heading">Your categories</h2>
+      <span class="muted"><%= categories.length %></span>
+    </div>
+    <ul class="entry-list">
+      <% for (const category of categories) { %>
+        <li class="entry"><%= category.name %></li>
+      <% } %>
+    </ul>
+  </section>
+  <section id="add-category" class="ledger-panel form-panel" aria-labelledby="category-form-heading">
+    <h2 id="category-form-heading" class="mb-3">Add category</h2>
+    <form method="post" action="/categories">
+      <label for="name" class="form-label">Category name</label>
+      <input id="name" name="name" class="form-control <%= error ? 'is-invalid' : '' %>" value="<%= name %>" maxlength="40" placeholder="e.g. Health" required <%- error ? 'aria-invalid="true" aria-describedby="name-error"' : '' %>>
+      <% if (error) { %><div id="name-error" class="invalid-feedback"><%= error %></div><% } %>
+      <button type="submit" class="btn btn-dark mt-3">Add category</button>
+    </form>
+  </section>
+</div>
+
+<%- include('partials/footer') %>

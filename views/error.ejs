@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<div class="page-intro"><h1><%= title %></h1></div>
+<div class="ledger-panel form-panel">
+  <p><%= message %></p>
+  <% if (typeof backToExpenses !== 'undefined' && backToExpenses) { %>
+    <a class="btn btn-dark" href="/expenses">Back to expenses</a>
+  <% } else { %>
+    <a class="btn btn-dark" href="/">Back to dashboard</a>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

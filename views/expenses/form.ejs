@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+
+<div class="page-intro">
+  <h1><%= title %></h1>
+  <a href="/expenses" class="text-link"><span aria-hidden="true">←</span> Back to expenses</a>
+</div>
+
+<section class="ledger-panel form-panel" aria-label="<%= title %>">
+  <form method="post" action="<%= action %>">
+    <div class="mb-3">
+      <label class="form-label" for="title">Title</label>
+      <input class="form-control <%= errors.title ? 'is-invalid' : '' %>" id="title" name="title" value="<%= values.title %>" maxlength="100" placeholder="e.g. Weekly groceries" required <%- errors.title ? 'aria-invalid="true" aria-describedby="title-error"' : '' %>>
+      <% if (errors.title) { %><div id="title-error" class="invalid-feedback"><%= errors.title %></div><% } %>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-sm-6">
+        <label class="form-label" for="amount">Amount (EGP)</label>
+        <input class="form-control <%= errors.amount ? 'is-invalid' : '' %>" type="number" id="amount" name="amount" inputmode="decimal" min="0.01" max="9999999.99" step="0.01" value="<%= values.amount %>" placeholder="0.00" required <%- errors.amount ? 'aria-invalid="true" aria-describedby="amount-error"' : '' %>>
+        <% if (errors.amount) { %><div id="amount-error" class="invalid-feedback"><%= errors.amount %></div><% } %>
+      </div>
+      <div class="col-sm-6">
+        <label class="form-label" for="date">Date</label>
+        <input class="form-control <%= errors.date ? 'is-invalid' : '' %>" type="date" id="date" name="date" value="<%= values.date %>" min="0001-01-01" max="9999-12-31" required <%- errors.date ? 'aria-invalid="true" aria-describedby="date-error"' : '' %>>
+        <% if (errors.date) { %><div id="date-error" class="invalid-feedback"><%= errors.date %></div><% } %>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="d-flex justify-content-between align-items-baseline gap-2">
+        <label class="form-label" for="categoryId">Category</label>
+        <a href="/categories#add-category" class="text-link">Add a category</a>
+      </div>
+      <select class="form-select <%= errors.categoryId ? 'is-invalid' : '' %>" id="categoryId" name="categoryId" required <%- errors.categoryId ? 'aria-invalid="true" aria-describedby="category-error"' : '' %>>
+        <option value="">Choose a category</option>
+        <% for (const category of categories) { %>
+          <option value="<%= category.id %>" <%= String(values.categoryId) === String(category.id) ? 'selected' : '' %>><%= category.name %></option>
+        <% } %>
+      </select>
+      <% if (errors.categoryId) { %><div id="category-error" class="invalid-feedback"><%= errors.categoryId %></div><% } %>
+    </div>
+    <div class="mb-4">
+      <label class="form-label" for="description">Description <span class="muted fw-normal">(optional)</span></label>
+      <textarea class="form-control <%= errors.description ? 'is-invalid' : '' %>" id="description" name="description" maxlength="500" rows="3" <%- errors.description ? 'aria-invalid="true" aria-describedby="description-error"' : '' %>><%= values.description %></textarea>
+      <% if (errors.description) { %><div id="description-error" class="invalid-feedback"><%= errors.description %></div><% } %>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-dark" type="submit"><%= submitLabel %></button>
+      <a class="btn btn-light border" href="/expenses">Cancel</a>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Masrofaty</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/geist/index.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="visually-hidden-focusable skip-link">Skip to content</a>
+  <header class="sidebar">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>Masrofaty <small>Expense tracker</small></span>
+    </a>
+    <nav class="nav ledger-nav" aria-label="Main navigation">
+      <% for (const [key, label, href] of [['dashboard', 'Dashboard', '/'], ['expenses', 'Expenses', '/expenses'], ['categories', 'Categories', '/categories']]) { %>
+        <a class="nav-link <%= activePage === key ? 'active' : '' %>" href="<%= href %>" <%= activePage === key ? 'aria-current=page' : '' %>><%= label %></a>
+      <% } %>
+    </nav>
+  </header>
+  <main id="main" class="canvas">
+    <% if (notice) { %>
+      <div class="notice" role="status"><%= notice %></div>
+    <% } %>

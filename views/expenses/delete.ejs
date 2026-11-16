@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<div class="page-intro">
+  <h1><%= title %></h1>
+</div>
+
+<section class="ledger-panel form-panel" aria-label="Confirm deletion">
+  <p class="mb-3">This will permanently remove the expense from your ledger.</p>
+  <div class="delete-entry">
+    <div class="entry-copy">
+      <div class="entry-title"><%= expense.title %></div>
+      <div class="entry-meta"><%= expense.category_name %> <span aria-hidden="true">·</span> <%= formatDate(expense.date) %></div>
+    </div>
+    <div class="money"><small>EGP</small> <%= formatAmount(expense.amount_cents) %></div>
+  </div>
+  <form class="form-actions" method="post" action="/expenses/<%= expense.id %>/delete">
+    <a class="btn btn-light border" href="/expenses">Cancel</a>
+    <button type="submit" class="btn btn-danger">Delete expense</button>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>
